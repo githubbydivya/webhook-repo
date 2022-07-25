@@ -1,5 +1,6 @@
-Flask
+Flask~=2.1.3
 Flask-Cors
 Flask-Login
 Flask-PyMongo
-pymongo
+pymongo[tls,srv]~=4.2.0
+certifi~=2022.6.15

@@ -1,4 +1,15 @@
-from flask_pymongo import PyMongo
+import certifi
+import pymongo
+
 
 # Setup MongoDB here
-mongo = PyMongo(uri="mongodb+srv://{USER_NAME}:{PASSWORD}@{ClusterOrServerURL}/?retryWrites=true&w=majority")
+class MongoConnection:
+    conn = None
+
+    def connect(self):
+        client = pymongo.MongoClient(
+            "mongodb+srv://{DB_USERNAME}:{DB_PASSWORD}@{DB_CLUSTER_URL}/?retryWrites=true&w=majority",
+            tlsCAFile=certifi.where())
+        mydb = client.test
+        return mydb
+

@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<title>{{t}}</title>
+		<!-- href="/static/assets/style.css"-->
+		<link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='assets/style.css')}}" >
+		<link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='assets/emoji.css')}}" >
+		<script src="{{ url_for('static',filename='assets/twemoji.min.js')}}"></script>
+		<script src="{{ url_for('static',filename='assets/emoji.js')}}"></script>
+	</head>
+<body>
+	<h1>{{ h }}</h1>
+	<table>
+	{% for todo in webhookData %}
+		<tr class="datas">
+			{% if todo["action"] == "PUSH" %}
+				<p><b>{{ todo["author"] }}</b> pushed to <b>{{ todo["from_branch"] }}</b> on <b>{{ todo["timestamp"] }}</b></p>
+			{% endif %}
+			{% if todo["action"] == "PULL_REQUEST" %}
+				<p><b>{{ todo["author"] }}</b> submitted a pull request from <b>{{ todo["from_branch"] }}</b> to <b>{{ todo["to_branch"] }}</b> on <b>{{ todo["timestamp"] }}</b></p>
+			{% endif %}
+			{% if todo["action"] == "MERGE" %}
+				<p><b>{{ todo["author"] }}</b> merged branch <b>{{ todo["from_branch"] }}</b> to <b>{{ todo["to_branch"] }}</b> on <b>{{ todo["timestamp"] }}</b></p>
+			{% endif %}
+		</tr>
+	{% endfor %}
+	</table>
+	<script>
+		window.setInterval('refresh()', 15000);
+    // Call a function every 10000 milliseconds
+    // (OR 10 seconds).
+
+    // Refresh or reload page.
+    function refresh() {
+        window .location.reload();
+    }
+
+	</script>
+</body>
+</html>
